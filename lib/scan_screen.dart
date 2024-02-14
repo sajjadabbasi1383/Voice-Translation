@@ -59,7 +59,8 @@ class _ScanScreenState extends State<ScanScreen> {
                         height: 15,
                       ),
                       ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
                         child: Image.asset(
                           "assets/images/scanning.gif",
                           height: MediaQuery.sizeOf(context).height / 4,
@@ -67,11 +68,11 @@ class _ScanScreenState extends State<ScanScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Container(
                         color: Colors.red,
-                        height: MediaQuery.sizeOf(context).height/7,
+                        height: MediaQuery.sizeOf(context).height / 7,
                       ),
                       const SizedBox(
                         height: 20,
@@ -81,15 +82,25 @@ class _ScanScreenState extends State<ScanScreen> {
                         children: [
                           MaterialButton(
                             onPressed: () {},
-                            height:55,
+                            height: 55,
                             minWidth: 165,
                             color: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
                             child: const Row(
                               children: [
-                                Text("اسکن از گالری",style: buttonStyle,),
-                                SizedBox(width: 10,),
-                                Icon(Icons.image,color: Colors.white,size: 26,),
+                                Text(
+                                  "اسکن از گالری",
+                                  style: buttonStyle,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(
+                                  Icons.image,
+                                  color: Colors.white,
+                                  size: 26,
+                                ),
                               ],
                             ),
                           ),
@@ -98,12 +109,22 @@ class _ScanScreenState extends State<ScanScreen> {
                             height: 55,
                             minWidth: 165,
                             color: Colors.blueAccent,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
                             child: const Row(
                               children: [
-                                Text("اسکن با دوربین",style: buttonStyle,),
-                                SizedBox(width: 10,),
-                                Icon(Icons.camera,color: Colors.white,size: 26,),
+                                Text(
+                                  "اسکن با دوربین",
+                                  style: buttonStyle,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Icon(
+                                  Icons.camera,
+                                  color: Colors.white,
+                                  size: 26,
+                                ),
                               ],
                             ),
                           ),
