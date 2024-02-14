@@ -9,7 +9,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   static const tabStyle = TextStyle(
-      fontSize: 15, color: Colors.blueGrey, fontWeight: FontWeight.bold,fontFamily: 'irs');
+      fontSize: 15,
+      color: Colors.blueGrey,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'irs');
+
+  static const buttonStyle = TextStyle(
+      fontSize: 17,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'irs');
 
   List<String> source = [
     "انگلیسی",
@@ -33,6 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String selectedItemSource = "انگلیسی";
   String selectedItemDest = "فارسی";
+
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         .toList(),
                     onChanged: (value) {
                       setState(() {
-                        selectedItemSource=value!;
+                        selectedItemSource = value!;
                       });
                     },
                   ),
@@ -134,13 +145,52 @@ class _HomeScreenState extends State<HomeScreen> {
                         .toList(),
                     onChanged: (value) {
                       setState(() {
-                        selectedItemDest=value!;
+                        selectedItemDest = value!;
                       });
                     },
                   ),
                 ),
               ],
             ),
+            const SizedBox(
+              height: 15,
+            ),
+            SizedBox(
+              height: 140,
+              width: 400,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
+                child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  autofocus: false,
+                  textDirection: TextDirection.rtl,
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                      labelStyle: tabStyle,
+                      hintText: "متن خود را وارد نمایید",
+                      hintStyle: tabStyle,
+                      icon: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.clear,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Icon(
+                            Icons.volume_up,
+                            color: Colors.lightBlue,
+                          )
+                        ],
+                      )),
+                  controller: controller,
+                  onChanged: (value) {},
+                ),
+              ),
+            ),
+
           ],
         ),
       ),
