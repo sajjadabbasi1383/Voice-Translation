@@ -53,14 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
           elevation: 20,
-          margin: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(6),
           child: Container(
             margin: const EdgeInsets.all(10),
             child: ScrollConfiguration(
               behavior: MyBehavior(),
               child: SingleChildScrollView(
                 child: SizedBox(
-                  height: MediaQuery.sizeOf(context).height / 1.4 - 10,
+                  height: MediaQuery.sizeOf(context).height / 1.4,
                   child: Column(
                     children: [
                       const SizedBox(
@@ -241,6 +241,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: Colors.blueAccent,
+          child: const Icon(Icons.mic,size: 28,),
         ),
       ),
     );
