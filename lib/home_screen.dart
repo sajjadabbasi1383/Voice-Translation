@@ -47,161 +47,210 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      elevation: 20,
-      margin: const EdgeInsets.all(10),
-      child: Container(
-        margin: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "زبان مبدا",
-                  style: tabStyle,
-                ),
-                Text("زبان مقصد", style: tabStyle),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: MediaQuery.sizeOf(context).width / 3,
-                  height: 50,
-                  margin: const EdgeInsets.all(16),
-                  child: DropdownButtonFormField<String>(
-                    style: tabStyle,
-                    decoration: InputDecoration(
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 12),
-                        enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide:
-                                BorderSide(width: 2, color: Colors.white)),
-                        focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide:
-                                BorderSide(width: 2, color: Colors.white)),
-                        fillColor: Colors.grey[200]),
-                    value: selectedItemSource,
-                    items: source
-                        .map(
-                          (item) => DropdownMenuItem<String>(
-                            value: item,
-                            alignment: AlignmentDirectional.centerEnd,
-                            child: Text(
-                              item,
-                              style: tabStyle,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedItemSource = value!;
-                      });
-                    },
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.sizeOf(context).width / 3,
-                  height: 50,
-                  margin: const EdgeInsets.all(16),
-                  child: DropdownButtonFormField<String>(
-                    style: tabStyle,
-                    decoration: InputDecoration(
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 12),
-                        enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide:
-                                BorderSide(width: 2, color: Colors.white)),
-                        focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide:
-                                BorderSide(width: 2, color: Colors.white)),
-                        fillColor: Colors.grey[200]),
-                    value: selectedItemDest,
-                    items: dest
-                        .map(
-                          (item) => DropdownMenuItem<String>(
-                            value: item,
-                            alignment: AlignmentDirectional.centerEnd,
-                            child: Text(
-                              item,
-                              style: tabStyle,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        selectedItemDest = value!;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            SizedBox(
-              height: 140,
-              width: 400,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 16, right: 16, left: 16),
-                child: TextField(
-                  keyboardType: TextInputType.multiline,
-                  autofocus: false,
-                  textDirection: TextDirection.rtl,
-                  textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                      labelStyle: tabStyle,
-                      hintText: "متن خود را وارد نمایید",
-                      hintStyle: tabStyle,
-                      icon: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+    return SafeArea(
+      child: Scaffold(
+        body: Card(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          elevation: 20,
+          margin: const EdgeInsets.all(10),
+          child: Container(
+            margin: const EdgeInsets.all(10),
+            child: ScrollConfiguration(
+              behavior: MyBehavior(),
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: MediaQuery.sizeOf(context).height / 1.4 - 10,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Icon(
-                            Icons.clear,
-                            color: Colors.red,
+                          Text(
+                            "زبان مبدا",
+                            style: tabStyle,
                           ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Icon(
-                            Icons.volume_up,
-                            color: Colors.lightBlue,
-                          )
+                          Text("زبان مقصد", style: tabStyle),
                         ],
-                      )),
-                  controller: controller,
-                  onChanged: (value) {},
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: MediaQuery.sizeOf(context).width / 3,
+                            height: 50,
+                            margin: const EdgeInsets.all(16),
+                            child: DropdownButtonFormField<String>(
+                              style: tabStyle,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 12),
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(
+                                          width: 2, color: Colors.white)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(
+                                          width: 2, color: Colors.white)),
+                                  fillColor: Colors.grey[200]),
+                              value: selectedItemSource,
+                              items: source
+                                  .map(
+                                    (item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      alignment: AlignmentDirectional.centerEnd,
+                                      child: Text(
+                                        item,
+                                        style: tabStyle,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedItemSource = value!;
+                                });
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.sizeOf(context).width / 3,
+                            height: 50,
+                            margin: const EdgeInsets.all(16),
+                            child: DropdownButtonFormField<String>(
+                              style: tabStyle,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 12, horizontal: 12),
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(
+                                          width: 2, color: Colors.white)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(8)),
+                                      borderSide: BorderSide(
+                                          width: 2, color: Colors.white)),
+                                  fillColor: Colors.grey[200]),
+                              value: selectedItemDest,
+                              items: dest
+                                  .map(
+                                    (item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      alignment: AlignmentDirectional.centerEnd,
+                                      child: Text(
+                                        item,
+                                        style: tabStyle,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedItemDest = value!;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: MediaQuery.sizeOf(context).height / 6,
+                        width: MediaQuery.sizeOf(context).width / 1.1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 16, right: 16, left: 16),
+                          child: TextField(
+                            maxLines: 2,
+                            keyboardType: TextInputType.multiline,
+                            autofocus: false,
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.grey[100],
+                                labelStyle: tabStyle,
+                                hintText: "متن خود را وارد نمایید",
+                                hintStyle: tabStyle,
+                                enabledBorder: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(6)),
+                                    borderSide: BorderSide(
+                                        width: 1.5, color: Colors.blueGrey)),
+                                focusedBorder: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(6)),
+                                    borderSide: BorderSide(
+                                        width: 1.5,
+                                        color: Color.fromRGBO(0, 95, 186, 1))),
+                                icon: const Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.clear,
+                                      color: Colors.red,
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Icon(
+                                      Icons.volume_up,
+                                      color: Colors.lightBlue,
+                                    )
+                                  ],
+                                )),
+                            controller: controller,
+                            onChanged: (value) {},
+                          ),
+                        ),
+                      ),
+                      MaterialButton(
+                        onPressed: () {},
+                        minWidth: MediaQuery.sizeOf(context).width / 1.2,
+                        height: 50,
+                        color: Colors.blueAccent,
+                        elevation: 6,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6)),
+                        child: const Text(
+                          "ترجمه کن",
+                          style: buttonStyle,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      const Center(
+                        child: Text(
+                          "محل نمایش نتایج",
+                          style: tabStyle,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-            MaterialButton(
-              onPressed: (){},
-              minWidth: 300,
-              height: 60,
-              color: Colors.blueAccent,
-              elevation: 8,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-              child: const Text("ترجمه کن",style: buttonStyle,),
-            ),
-          ],
+          ),
         ),
       ),
     );
+  }
+}
+
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
   }
 }
