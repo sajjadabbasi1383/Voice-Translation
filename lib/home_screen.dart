@@ -190,7 +190,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-
+            MaterialButton(
+              onPressed: (){},
+              minWidth: 300,
+              height: 60,
+              color: Colors.blueAccent,
+              elevation: 8,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+              child: const Text("ترجمه کن",style: buttonStyle,),
+            ),
           ],
         ),
       ),
