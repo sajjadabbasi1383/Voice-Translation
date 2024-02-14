@@ -99,7 +99,46 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     },
                   ),
-                )
+                ),
+                Container(
+                  width: MediaQuery.sizeOf(context).width / 3,
+                  height: 50,
+                  margin: const EdgeInsets.all(16),
+                  child: DropdownButtonFormField<String>(
+                    style: tabStyle,
+                    decoration: InputDecoration(
+                        filled: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 12),
+                        enabledBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide:
+                                BorderSide(width: 2, color: Colors.white)),
+                        focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderSide:
+                                BorderSide(width: 2, color: Colors.white)),
+                        fillColor: Colors.grey[200]),
+                    value: selectedItemDest,
+                    items: dest
+                        .map(
+                          (item) => DropdownMenuItem<String>(
+                            value: item,
+                            alignment: AlignmentDirectional.centerEnd,
+                            child: Text(
+                              item,
+                              style: tabStyle,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedItemDest=value!;
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
           ],
