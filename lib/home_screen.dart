@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:voice_translation/api/translation_api.dart';
 import 'package:voice_translation/api/translation_lang_code.dart';
+import 'package:text_to_speech/text_to_speech.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -47,10 +49,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
   TextEditingController controller = TextEditingController();
 
-  String languageFirst=TranslationLanguageCode.languageLatin.first;
-  String languageSecond=TranslationLanguageCode.languageLatin[1];
+  String languageFirst = TranslationLanguageCode.languageLatin.first;
+  String languageSecond = TranslationLanguageCode.languageLatin[1];
 
-  String resultValue="";
+  String resultValue = "";
+
+  TextToSpeech tts = TextToSpeech();
+
+  late stt.SpeechToText speech;
+
+  bool isListening = false;
+
+  String textRecognizedWords = "";
+
+  @override
+  void initState() {
+    speech = stt.SpeechToText();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,8 +139,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedItemSource = value!;
-                                  String rest=TranslationLanguageCode.languageMap[value]!;
-                                  languageFirst=rest;
+                                  String rest = TranslationLanguageCode
+                                      .languageMap[value]!;
+                                  languageFirst = rest;
                                   debugPrint(languageFirst);
                                 });
                               },
@@ -167,8 +184,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedItemDest = value!;
-                                  String rest2=TranslationLanguageCode.languageMap[value]!;
-                                  languageSecond=rest2;
+                                  String rest2 = TranslationLanguageCode
+                                      .languageMap[value]!;
+                                  languageSecond = rest2;
                                   debugPrint(languageSecond);
                                 });
                               },
@@ -186,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             maxLines: 2,
                             keyboardType: TextInputType.multiline,
                             autofocus: false,
-                            textDirection: TextDirection.rtl,
+                            textDirection: TextDirection.ltr,
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 filled: true,
@@ -205,19 +223,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderSide: BorderSide(
                                         width: 1.5,
                                         color: Color.fromRGBO(0, 95, 186, 1))),
-                                icon: const Column(
+                                icon: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                      Icons.clear,
-                                      color: Colors.red,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.clear();
+                                      },
+                                      child: const Icon(
+                                        Icons.clear,
+                                        color: Colors.red,
+                                      ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
-                                    Icon(
-                                      Icons.volume_up,
-                                      color: Colors.lightBlue,
+                                    InkWell(
+                                      onTap: () {
+                                        String text = controller.text;
+                                        String lang = "en-US";
+                                        tts.setLanguage(lang);
+                                        tts.speak(text);
+                                      },
+                                      child: const Icon(
+                                        Icons.volume_up,
+                                        color: Colors.lightBlue,
+                                      ),
                                     )
                                   ],
                                 )),
@@ -244,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 40,
                       ),
-                       Center(
+                      Center(
                         child: Text(
                           resultValue,
                           textDirection: TextDirection.ltr,
@@ -261,23 +292,30 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           backgroundColor: Colors.blueAccent,
-          child: const Icon(Icons.mic,size: 28,),
+          child: const Icon(
+            Icons.mic,
+            size: 28,
+          ),
         ),
       ),
     );
   }
 
-  void translateFunction()async{
-    final fromLanguageCode=TranslationLanguageCode.getLanguageCode(languageFirst);
-    final toLanguageCode=TranslationLanguageCode.getLanguageCode(languageSecond);
-    String message=controller.text;
+  void translateFunction() async {
+    final fromLanguageCode =
+        TranslationLanguageCode.getLanguageCode(languageFirst);
+    final toLanguageCode =
+        TranslationLanguageCode.getLanguageCode(languageSecond);
+    String message = controller.text;
 
-    final result=await TranslationAPI.translate(message, fromLanguageCode, toLanguageCode);
+    final result = await TranslationAPI.translate(
+        message, fromLanguageCode, toLanguageCode);
 
     setState(() {
-      resultValue=result;
+      resultValue = result;
     });
   }
+
 
 }
 
