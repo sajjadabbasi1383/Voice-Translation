@@ -293,6 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
         floatingActionButton: AvatarGlow(
           animate: isListening,
           glowColor: Colors.lightBlue,
+          glowShape: BoxShape.circle,
           duration: const Duration(seconds: 2),
           repeat: true,
 

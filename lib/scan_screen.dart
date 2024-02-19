@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});
@@ -25,6 +27,12 @@ class _ScanScreenState extends State<ScanScreen> {
       color: Colors.white,
       fontWeight: FontWeight.bold,
       fontFamily: 'irs');
+
+  bool textScanning=false;
+  String scannedText="";
+  String translatedText="";
+  XFile? imageFile;
+  static final Map<String,String> words={};
 
   @override
   Widget build(BuildContext context) {
@@ -140,6 +148,26 @@ class _ScanScreenState extends State<ScanScreen> {
       ),
     );
   }
+
+  void getImage(ImageSource source)async{
+    try{
+      final pickImage=await ImagePicker().pickImage(source: source);
+      if(pickImage!=null){
+        textScanning=true;
+        imageFile=pickImage;
+        setState(() {});
+        getRecognisedText(pickImage);
+      }
+    }catch(e){
+      textScanning=false;
+      imageFile=null;
+      scannedText="Error while Scanning";
+      setState(() {});
+    }
+  }
+
+
+
 }
 
 class MyBehavior extends ScrollBehavior {
