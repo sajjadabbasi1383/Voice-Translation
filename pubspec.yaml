@@ -56,7 +56,9 @@ dev_dependencies:
   highlight_text: ^1.7.0
   avatar_glow: ^3.0.1
   flutter_localization: ^0.2.0
-  text_to_speech: any
+
+  text_to_speech:
+    path: C:\Users\Omega\StudioProjects\text_to_speech-main
 
   google_ml_kit: ^0.16.3
   image_picker: ^1.0.7

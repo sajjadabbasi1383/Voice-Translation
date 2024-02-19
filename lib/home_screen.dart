@@ -3,6 +3,7 @@ import 'package:voice_translation/api/translation_api.dart';
 import 'package:voice_translation/api/translation_lang_code.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:avatar_glow/avatar_glow.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -289,12 +290,21 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          backgroundColor: Colors.blueAccent,
-          child: const Icon(
-            Icons.mic,
-            size: 28,
+        floatingActionButton: AvatarGlow(
+          animate: isListening,
+          glowColor: Colors.lightBlue,
+          duration: const Duration(seconds: 2),
+          repeat: true,
+
+          child: FloatingActionButton(
+            onPressed: () => listen(),
+            backgroundColor: Colors.blueAccent,
+            child: Icon(
+              isListening?
+              Icons.mic_off
+              :Icons.mic,
+              size: 28,
+            ),
           ),
         ),
       ),
@@ -332,6 +342,9 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() => isListening = false);
         await speech.stop();
       }
+    }else{
+      setState(() => isListening = false);
+      await speech.stop();
     }
   }
 }
