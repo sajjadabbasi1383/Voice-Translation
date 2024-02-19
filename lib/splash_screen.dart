@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         left: 0,
                         child: SpinKitFadingCircle(
                           color: Color.fromRGBO(0, 95, 186, 1),
-                          size: 45,
+                          size: 42,
                         ),
                       )
                     ],

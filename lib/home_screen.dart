@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
               behavior: MyBehavior(),
               child: SingleChildScrollView(
                 child: SizedBox(
-                  height: MediaQuery.sizeOf(context).height / 1.4,
+                  height: MediaQuery.sizeOf(context).height / 1.3,
                   child: Column(
                     children: [
                       const SizedBox(

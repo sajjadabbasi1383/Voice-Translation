@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:voice_translation/api/translation_api.dart';
 
 
 class ScanScreen extends StatefulWidget {
@@ -44,6 +45,8 @@ class _ScanScreenState extends State<ScanScreen> {
   XFile? imageFile;
   static final Map<String, String> words = {};
 
+  bool isTranslating=false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -59,7 +62,7 @@ class _ScanScreenState extends State<ScanScreen> {
               behavior: MyBehavior(),
               child: SingleChildScrollView(
                 child: SizedBox(
-                  height: MediaQuery.sizeOf(context).height / 1.4,
+                  height: MediaQuery.sizeOf(context).height / 1.3,
                   child: Column(
                     children: [
                       const SizedBox(
@@ -107,7 +110,7 @@ class _ScanScreenState extends State<ScanScreen> {
                       SizedBox(
                         height: imageFile==null?
                         MediaQuery.sizeOf(context).height / 7:
-                        MediaQuery.sizeOf(context).height / 6,
+                        MediaQuery.sizeOf(context).height / 4.5,
 
                         child: Card(
                           shape: const RoundedRectangleBorder(
@@ -116,12 +119,15 @@ class _ScanScreenState extends State<ScanScreen> {
                           margin: const EdgeInsets.all(6),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(scannedText,maxLines: 9,style: subTitleStyle,),
-                                Text(scannedText,maxLines: 9,style: translatedStyle,),
-                              ],
+                            child: Directionality(
+                              textDirection: TextDirection.ltr,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(scannedText,maxLines: 9,style: subTitleStyle,),
+                                  Text(translatedText,maxLines: 9,style: translatedStyle,),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -233,7 +239,22 @@ class _ScanScreenState extends State<ScanScreen> {
     debugPrint(words.toString());
     textScanning = false;
     setState(() {});
+    translateScan();
   }
+
+  void translateScan()async{
+    isTranslating=true;
+    for(var wordKey in words.keys){
+      final wordTranslated=await TranslationAPI.translate(wordKey, "en", "fa");
+      words.update(wordKey, (value) => wordTranslated);
+    }
+    for(var wordValue in words.values){
+      translatedText="$translatedText$wordValue\n";
+    }
+    isTranslating=false;
+    setState(() {});
+  }
+
 }
 
 class MyBehavior extends ScrollBehavior {
