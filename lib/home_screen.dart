@@ -316,7 +316,24 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-
+  void listen() async {
+    if (!isListening) {
+      bool available = await speech.initialize();
+      if (available) {
+        setState(
+          () => isListening = true,
+        );
+        speech.listen(
+            onResult: (value) => setState(() {
+                  textRecognizedWords = value.recognizedWords;
+                  controller.text = textRecognizedWords;
+                }));
+      } else {
+        setState(() => isListening = false);
+        await speech.stop();
+      }
+    }
+  }
 }
 
 class MyBehavior extends ScrollBehavior {
