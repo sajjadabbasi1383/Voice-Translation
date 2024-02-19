@@ -1,6 +1,4 @@
 import 'package:translator/translator.dart';
-import 'package:http/http.dart' as http;
-import 'package:html_unescape/html_unescape.dart';
 
 class TranslationAPI {
   static Future<String> translate(

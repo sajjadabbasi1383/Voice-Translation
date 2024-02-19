@@ -48,12 +48,10 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
   flutter_spinkit: ^5.2.0
-  html_unescape: ^2.0.0
   http: any
   translator: ^1.0.0
 
   speech_to_text: ^6.6.0
-  highlight_text: ^1.7.0
   avatar_glow: ^3.0.1
   flutter_localization: ^0.2.0
 

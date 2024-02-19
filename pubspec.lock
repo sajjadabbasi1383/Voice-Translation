@@ -293,22 +293,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.9.0"
-  highlight_text:
-    dependency: "direct dev"
-    description:
-      name: highlight_text
-      sha256: "74806039a02e65e5aef9bb27c2df42b8694700c389ec75b733eb2ac53a84c606"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.7.0"
-  html_unescape:
-    dependency: "direct dev"
-    description:
-      name: html_unescape
-      sha256: "15362d7a18f19d7b742ef8dcb811f5fd2a2df98db9f80ea393c075189e0b61e3"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   http:
     dependency: "direct dev"
     description:
