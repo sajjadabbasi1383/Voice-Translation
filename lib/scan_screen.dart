@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});
@@ -28,11 +32,11 @@ class _ScanScreenState extends State<ScanScreen> {
       fontWeight: FontWeight.bold,
       fontFamily: 'irs');
 
-  bool textScanning=false;
-  String scannedText="";
-  String translatedText="";
+  bool textScanning = false;
+  String scannedText = "";
+  String translatedText = "";
   XFile? imageFile;
-  static final Map<String,String> words={};
+  static final Map<String, String> words = {};
 
   @override
   Widget build(BuildContext context) {
@@ -59,25 +63,38 @@ class _ScanScreenState extends State<ScanScreen> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const Text(
-                          "با استفاده از این تکنولوژی می توانید به راحتی لغات موجود درون تصاویر را با دوربین موبایل خود اسکن کرده و آن ها را ترجمه کنید و یا در نرم افزار های دیگر استفاده نمایید",
-                          style: subTitleStyle,
-                          textAlign: TextAlign.justify),
+                      imageFile == null
+                          ? const Text(
+                              "با استفاده از این تکنولوژی می توانید به راحتی لغات موجود درون تصاویر را با دوربین موبایل خود اسکن کرده و آن ها را ترجمه کنید و یا در نرم افزار های دیگر استفاده نمایید",
+                              style: subTitleStyle,
+                              textAlign: TextAlign.justify)
+                          : const SizedBox.shrink(),
                       const SizedBox(
                         height: 15,
                       ),
                       ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        child: Image.asset(
-                          "assets/images/scanning.gif",
-                          height: MediaQuery.sizeOf(context).height / 4,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                          child: imageFile == null
+                              ? Image.asset(
+                                  "assets/images/scanning.gif",
+                                  height: MediaQuery.sizeOf(context).height / 4,
+                                  fit: BoxFit.fill,
+                                )
+                              : Image.file(
+                                  File(imageFile!.path),
+                                  height: MediaQuery.sizeOf(context).height / 4,
+                                  fit: BoxFit.fill,
+                                )),
                       const SizedBox(
                         height: 20,
                       ),
+
+                      textScanning?
+                      const SpinKitPouringHourGlassRefined(
+                        color: Color.fromRGBO(0, 95, 186, 1),
+                        size: 45,
+                      ):
                       Container(
                         color: Colors.red,
                         height: MediaQuery.sizeOf(context).height / 7,
@@ -149,44 +166,42 @@ class _ScanScreenState extends State<ScanScreen> {
     );
   }
 
-  void getImage(ImageSource source)async{
-    try{
-      final pickImage=await ImagePicker().pickImage(source: source);
-      if(pickImage!=null){
-        textScanning=true;
-        imageFile=pickImage;
+  void getImage(ImageSource source) async {
+    try {
+      final pickImage = await ImagePicker().pickImage(source: source);
+      if (pickImage != null) {
+        textScanning = true;
+        imageFile = pickImage;
         setState(() {});
         getRecognisedText(pickImage);
       }
-    }catch(e){
-      textScanning=false;
-      imageFile=null;
-      scannedText="Error while Scanning";
+    } catch (e) {
+      textScanning = false;
+      imageFile = null;
+      scannedText = "Error while Scanning";
       setState(() {});
     }
   }
 
-  void getRecognisedText(XFile image)async{
+  void getRecognisedText(XFile image) async {
     words.clear();
-    scannedText="";
-    translatedText="";
+    scannedText = "";
+    translatedText = "";
 
-    final inputImage=InputImage.fromFilePath(image.path);
-    final textDetector=GoogleMlKit.vision.textRecognizer();
-    RecognizedText recognizedText=await textDetector.processImage(inputImage);
+    final inputImage = InputImage.fromFilePath(image.path);
+    final textDetector = GoogleMlKit.vision.textRecognizer();
+    RecognizedText recognizedText = await textDetector.processImage(inputImage);
     await textDetector.close();
-    for(TextBlock block in recognizedText.blocks){
-      for(TextLine line in block.lines){
-        words.addAll({line.text:''});
-        scannedText="$scannedText${line.text}\n";
-
+    for (TextBlock block in recognizedText.blocks) {
+      for (TextLine line in block.lines) {
+        words.addAll({line.text: ''});
+        scannedText = "$scannedText${line.text}\n";
       }
     }
     debugPrint(words.toString());
-    textScanning=false;
+    textScanning = false;
     setState(() {});
   }
-
 }
 
 class MyBehavior extends ScrollBehavior {
