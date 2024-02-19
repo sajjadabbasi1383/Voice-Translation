@@ -166,7 +166,26 @@ class _ScanScreenState extends State<ScanScreen> {
     }
   }
 
+  void getRecognisedText(XFile image)async{
+    words.clear();
+    scannedText="";
+    translatedText="";
 
+    final inputImage=InputImage.fromFilePath(image.path);
+    final textDetector=GoogleMlKit.vision.textRecognizer();
+    RecognizedText recognizedText=await textDetector.processImage(inputImage);
+    await textDetector.close();
+    for(TextBlock block in recognizedText.blocks){
+      for(TextLine line in block.lines){
+        words.addAll({line.text:''});
+        scannedText="$scannedText${line.text}\n";
+
+      }
+    }
+    debugPrint(words.toString());
+    textScanning=false;
+    setState(() {});
+  }
 
 }
 
