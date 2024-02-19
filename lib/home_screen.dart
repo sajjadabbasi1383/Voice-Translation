@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voice_translation/api/translation_lang_code.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -44,6 +45,11 @@ class _HomeScreenState extends State<HomeScreen> {
   String selectedItemDest = "فارسی";
 
   TextEditingController controller = TextEditingController();
+
+  String languageFirst=TranslationLanguageCode.languageLatin.first;
+  String languageSecond=TranslationLanguageCode.languageLatin[1];
+
+  String result="";
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedItemSource = value!;
+                                  String rest=TranslationLanguageCode.languageMap[value]!;
+                                  languageFirst=rest;
+                                  debugPrint(languageFirst);
                                 });
                               },
                             ),
@@ -157,6 +166,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedItemDest = value!;
+                                  String rest2=TranslationLanguageCode.languageMap[value]!;
+                                  languageSecond=rest2;
+                                  debugPrint(languageSecond);
                                 });
                               },
                             ),
