@@ -32,6 +32,12 @@ class _ScanScreenState extends State<ScanScreen> {
       fontWeight: FontWeight.bold,
       fontFamily: 'irs');
 
+  static const translatedStyle = TextStyle(
+      fontSize: 14,
+      color: Colors.green,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'irs');
+
   bool textScanning = false;
   String scannedText = "";
   String translatedText = "";
@@ -91,13 +97,35 @@ class _ScanScreenState extends State<ScanScreen> {
                       ),
 
                       textScanning?
-                      const SpinKitPouringHourGlassRefined(
-                        color: Color.fromRGBO(0, 95, 186, 1),
-                        size: 45,
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: SpinKitPouringHourGlassRefined(
+                          color: Color.fromRGBO(0, 95, 186, 1),
+                          size: 45,
+                        ),
                       ):
-                      Container(
-                        color: Colors.red,
-                        height: MediaQuery.sizeOf(context).height / 7,
+                      SizedBox(
+                        height: imageFile==null?
+                        MediaQuery.sizeOf(context).height / 7:
+                        MediaQuery.sizeOf(context).height / 6,
+
+                        child: Card(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10))),
+                          elevation: 20,
+                          margin: const EdgeInsets.all(6),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(scannedText,maxLines: 9,style: subTitleStyle,),
+                                Text(scannedText,maxLines: 9,style: translatedStyle,),
+                              ],
+                            ),
+                          ),
+                        ),
+
                       ),
                       const SizedBox(
                         height: 20,
@@ -106,7 +134,9 @@ class _ScanScreenState extends State<ScanScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              getImage(ImageSource.gallery);
+                            },
                             height: 55,
                             minWidth: 165,
                             color: Colors.blueAccent,
@@ -130,7 +160,9 @@ class _ScanScreenState extends State<ScanScreen> {
                             ),
                           ),
                           MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              getImage(ImageSource.camera);
+                            },
                             height: 55,
                             minWidth: 165,
                             color: Colors.blueAccent,
