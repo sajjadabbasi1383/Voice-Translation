@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voice_translation/api/translation_api.dart';
 import 'package:voice_translation/api/translation_lang_code.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String languageFirst=TranslationLanguageCode.languageLatin.first;
   String languageSecond=TranslationLanguageCode.languageLatin[1];
 
-  String result="";
+  String resultValue="";
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +227,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          translateFunction();
+                        },
                         minWidth: MediaQuery.sizeOf(context).width / 1.2,
                         height: 50,
                         color: Colors.blueAccent,
@@ -241,9 +244,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 40,
                       ),
-                      const Center(
+                       Center(
                         child: Text(
-                          "محل نمایش نتایج",
+                          resultValue,
+                          textDirection: TextDirection.ltr,
                           style: tabStyle,
                         ),
                       ),
@@ -262,6 +266,19 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  void translateFunction()async{
+    final fromLanguageCode=TranslationLanguageCode.getLanguageCode(languageFirst);
+    final toLanguageCode=TranslationLanguageCode.getLanguageCode(languageSecond);
+    String message=controller.text;
+
+    final result=await TranslationAPI.translate(message, fromLanguageCode, toLanguageCode);
+
+    setState(() {
+      resultValue=result;
+    });
+  }
+
 }
 
 class MyBehavior extends ScrollBehavior {
