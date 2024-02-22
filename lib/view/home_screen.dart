@@ -272,6 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           resultValue,
                           textDirection: TextDirection.ltr,
+                          textAlign: TextAlign.center,
                           style: MyStyle.tabStyle,
                         ),
                       ),
