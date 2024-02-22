@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   TextToSpeech tts = TextToSpeech();
 
-  late stt.SpeechToText speech;
+  stt.SpeechToText speech=stt.SpeechToText();
 
   bool isListening = false;
 
@@ -115,12 +115,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       vertical: 12, horizontal: 12),
                                   enabledBorder: const OutlineInputBorder(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(8)),
+                                      BorderRadius.all(Radius.circular(8)),
                                       borderSide: BorderSide(
                                           width: 2, color: Colors.white)),
                                   focusedBorder: const OutlineInputBorder(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(8)),
+                                      BorderRadius.all(Radius.circular(8)),
                                       borderSide: BorderSide(
                                           width: 2, color: Colors.white)),
                                   fillColor: Colors.grey[200]),
@@ -128,14 +128,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               items: source
                                   .map(
                                     (item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      alignment: AlignmentDirectional.centerEnd,
-                                      child: Text(
-                                        item,
-                                        style: tabStyle,
-                                      ),
-                                    ),
-                                  )
+                                  value: item,
+                                  alignment: AlignmentDirectional.centerEnd,
+                                  child: Text(
+                                    item,
+                                    style: tabStyle,
+                                  ),
+                                ),
+                              )
                                   .toList(),
                               onChanged: (value) {
                                 setState(() {
@@ -160,12 +160,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       vertical: 12, horizontal: 12),
                                   enabledBorder: const OutlineInputBorder(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(8)),
+                                      BorderRadius.all(Radius.circular(8)),
                                       borderSide: BorderSide(
                                           width: 2, color: Colors.white)),
                                   focusedBorder: const OutlineInputBorder(
                                       borderRadius:
-                                          BorderRadius.all(Radius.circular(8)),
+                                      BorderRadius.all(Radius.circular(8)),
                                       borderSide: BorderSide(
                                           width: 2, color: Colors.white)),
                                   fillColor: Colors.grey[200]),
@@ -173,14 +173,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               items: dest
                                   .map(
                                     (item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      alignment: AlignmentDirectional.centerEnd,
-                                      child: Text(
-                                        item,
-                                        style: tabStyle,
-                                      ),
-                                    ),
-                                  )
+                                  value: item,
+                                  alignment: AlignmentDirectional.centerEnd,
+                                  child: Text(
+                                    item,
+                                    style: tabStyle,
+                                  ),
+                                ),
+                              )
                                   .toList(),
                               onChanged: (value) {
                                 setState(() {
@@ -215,12 +215,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 hintStyle: tabStyle,
                                 enabledBorder: const OutlineInputBorder(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(6)),
+                                    BorderRadius.all(Radius.circular(6)),
                                     borderSide: BorderSide(
                                         width: 1.5, color: Colors.blueGrey)),
                                 focusedBorder: const OutlineInputBorder(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(6)),
+                                    BorderRadius.all(Radius.circular(6)),
                                     borderSide: BorderSide(
                                         width: 1.5,
                                         color: Color.fromRGBO(0, 95, 186, 1))),
@@ -296,14 +296,13 @@ class _HomeScreenState extends State<HomeScreen> {
           glowShape: BoxShape.circle,
           duration: const Duration(seconds: 2),
           repeat: true,
-
           child: FloatingActionButton(
             onPressed: () => listen(),
             backgroundColor: Colors.blueAccent,
             child: Icon(
               isListening?
               Icons.mic_off
-              :Icons.mic,
+                  :Icons.mic,
               size: 28,
             ),
           ),
@@ -314,9 +313,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void translateFunction() async {
     final fromLanguageCode =
-        TranslationLanguageCode.getLanguageCode(languageFirst);
+    TranslationLanguageCode.getLanguageCode(languageFirst);
     final toLanguageCode =
-        TranslationLanguageCode.getLanguageCode(languageSecond);
+    TranslationLanguageCode.getLanguageCode(languageSecond);
     String message = controller.text;
 
     final result = await TranslationAPI.translate(
@@ -332,13 +331,13 @@ class _HomeScreenState extends State<HomeScreen> {
       bool available = await speech.initialize();
       if (available) {
         setState(
-          () => isListening = true,
+              () => isListening = true,
         );
         speech.listen(
             onResult: (value) => setState(() {
-                  textRecognizedWords = value.recognizedWords;
-                  controller.text = textRecognizedWords;
-                }));
+              textRecognizedWords = value.recognizedWords;
+              controller.text = textRecognizedWords;
+            }));
       } else {
         setState(() => isListening = false);
         await speech.stop();

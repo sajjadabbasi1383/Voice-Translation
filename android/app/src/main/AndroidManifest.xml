@@ -8,7 +8,11 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
     <application
         android:label="Voice Translation"
         android:name="${applicationName}"
