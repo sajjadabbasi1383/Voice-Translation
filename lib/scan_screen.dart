@@ -62,7 +62,7 @@ class _ScanScreenState extends State<ScanScreen> {
               behavior: MyBehavior(),
               child: SingleChildScrollView(
                 child: SizedBox(
-                  height: MediaQuery.sizeOf(context).height / 1.3,
+                  //height: MediaQuery.sizeOf(context).height / 1.3,
                   child: Column(
                     children: [
                       const SizedBox(
@@ -101,37 +101,32 @@ class _ScanScreenState extends State<ScanScreen> {
 
                       textScanning?
                       const Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.fromLTRB(10,50,10,30),
                         child: SpinKitPouringHourGlassRefined(
                           color: Color.fromRGBO(0, 95, 186, 1),
                           size: 45,
                         ),
                       ):
-                      SizedBox(
-                        height: imageFile==null?
-                        MediaQuery.sizeOf(context).height / 7:
-                        MediaQuery.sizeOf(context).height / 4.5,
-
-                        child: Card(
-                          shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10))),
-                          elevation: 20,
-                          margin: const EdgeInsets.all(6),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Directionality(
-                              textDirection: TextDirection.ltr,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(scannedText,maxLines: 9,style: subTitleStyle,),
-                                  Text(translatedText,maxLines: 9,style: translatedStyle,),
-                                ],
-                              ),
+                      scannedText==""?
+                          SizedBox(height: MediaQuery.sizeOf(context).height / 7,):
+                      Card(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                        elevation: 5,
+                        margin: const EdgeInsets.all(2),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(scannedText,maxLines: 50,overflow: TextOverflow.ellipsis,textAlign: TextAlign.justify,style: subTitleStyle,),
+                                Text(translatedText,maxLines: 50,overflow: TextOverflow.ellipsis,textAlign: TextAlign.justify,style: translatedStyle,textDirection: TextDirection.rtl,),
+                              ],
                             ),
                           ),
                         ),
-
                       ),
                       const SizedBox(
                         height: 20,
