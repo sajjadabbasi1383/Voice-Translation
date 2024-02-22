@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:voice_translation/splash_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'view/splash_screen.dart';
 
 void main(){
   runApp(MyApp());

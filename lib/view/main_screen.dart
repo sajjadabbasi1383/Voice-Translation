@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:voice_translation/home_screen.dart';
-import 'package:voice_translation/scan_screen.dart';
+
+import 'home_screen.dart';
+import 'scan_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -92,7 +93,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ],
             )),
-        body: const TabBarView(
+        body:  const TabBarView(
           children: [
             HomeScreen(),
             ScanScreen(),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:voice_translation/api/translation_api.dart';
-import 'package:voice_translation/api/translation_lang_code.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:avatar_glow/avatar_glow.dart';
+
+import '../constant/styles.dart';
+import '../controller/translation_api.dart';
+import '../controller/translation_lang_code.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,17 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const tabStyle = TextStyle(
-      fontSize: 15,
-      color: Colors.blueGrey,
-      fontWeight: FontWeight.bold,
-      fontFamily: 'irs');
 
-  static const buttonStyle = TextStyle(
-      fontSize: 17,
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-      fontFamily: 'irs');
 
   List<String> source = [
     "انگلیسی",
@@ -95,9 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Text(
                             "زبان مبدا",
-                            style: tabStyle,
+                            style: MyStyle.tabStyle,
                           ),
-                          Text("زبان مقصد", style: tabStyle),
+                          Text("زبان مقصد", style: MyStyle.tabStyle),
                         ],
                       ),
                       Row(
@@ -108,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 50,
                             margin: const EdgeInsets.all(16),
                             child: DropdownButtonFormField<String>(
-                              style: tabStyle,
+                              style: MyStyle.tabStyle,
                               decoration: InputDecoration(
                                   filled: true,
                                   contentPadding: const EdgeInsets.symmetric(
@@ -132,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   alignment: AlignmentDirectional.centerEnd,
                                   child: Text(
                                     item,
-                                    style: tabStyle,
+                                    style: MyStyle.tabStyle,
                                   ),
                                 ),
                               )
@@ -153,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 50,
                             margin: const EdgeInsets.all(16),
                             child: DropdownButtonFormField<String>(
-                              style: tabStyle,
+                              style: MyStyle.tabStyle,
                               decoration: InputDecoration(
                                   filled: true,
                                   contentPadding: const EdgeInsets.symmetric(
@@ -177,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   alignment: AlignmentDirectional.centerEnd,
                                   child: Text(
                                     item,
-                                    style: tabStyle,
+                                    style: MyStyle.tabStyle,
                                   ),
                                 ),
                               )
@@ -210,9 +202,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.grey[100],
-                                labelStyle: tabStyle,
+                                labelStyle: MyStyle.tabStyle,
                                 hintText: "متن خود را وارد نمایید",
-                                hintStyle: tabStyle,
+                                hintStyle: MyStyle.tabStyle,
                                 enabledBorder: const OutlineInputBorder(
                                     borderRadius:
                                     BorderRadius.all(Radius.circular(6)),
@@ -270,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             borderRadius: BorderRadius.circular(6)),
                         child: const Text(
                           "ترجمه کن",
-                          style: buttonStyle,
+                          style: MyStyle.buttonStyle,
                         ),
                       ),
                       const SizedBox(
@@ -280,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           resultValue,
                           textDirection: TextDirection.ltr,
-                          style: tabStyle,
+                          style: MyStyle.tabStyle,
                         ),
                       ),
                     ],

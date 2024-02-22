@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:voice_translation/api/translation_api.dart';
+import 'package:voice_translation/constant/styles.dart';
+
+import '../controller/translation_api.dart';
 
 
 class ScanScreen extends StatefulWidget {
@@ -15,29 +17,6 @@ class ScanScreen extends StatefulWidget {
 }
 
 class _ScanScreenState extends State<ScanScreen> {
-  static const titleStyle = TextStyle(
-      fontSize: 18,
-      color: Colors.blueGrey,
-      fontWeight: FontWeight.bold,
-      fontFamily: 'irs');
-
-  static const subTitleStyle = TextStyle(
-      fontSize: 14,
-      color: Colors.blueGrey,
-      fontWeight: FontWeight.normal,
-      fontFamily: 'irs');
-
-  static const buttonStyle = TextStyle(
-      fontSize: 16,
-      color: Colors.white,
-      fontWeight: FontWeight.bold,
-      fontFamily: 'irs');
-
-  static const translatedStyle = TextStyle(
-      fontSize: 14,
-      color: Colors.green,
-      fontWeight: FontWeight.bold,
-      fontFamily: 'irs');
 
   bool textScanning = false;
   String scannedText = "";
@@ -68,14 +47,14 @@ class _ScanScreenState extends State<ScanScreen> {
                       const SizedBox(
                         height: 7,
                       ),
-                      const Text("تشخیص متن (OCR)", style: titleStyle),
+                      const Text("تشخیص متن (OCR)", style: MyStyle.titleStyle),
                       const SizedBox(
                         height: 5,
                       ),
                       imageFile == null
                           ? const Text(
                               "با استفاده از این تکنولوژی می توانید به راحتی لغات موجود درون تصاویر را با دوربین موبایل خود اسکن کرده و آن ها را ترجمه کنید و یا در نرم افزار های دیگر استفاده نمایید",
-                              style: subTitleStyle,
+                              style: MyStyle.subTitleStyle,
                               textAlign: TextAlign.justify)
                           : const SizedBox.shrink(),
                       const SizedBox(
@@ -100,8 +79,8 @@ class _ScanScreenState extends State<ScanScreen> {
                       ),
 
                       textScanning?
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(10,50,10,30),
+                       Padding(
+                        padding: EdgeInsets.fromLTRB(10,MediaQuery.sizeOf(context).height / 10,10,MediaQuery.sizeOf(context).height / 10),
                         child: SpinKitPouringHourGlassRefined(
                           color: Color.fromRGBO(0, 95, 186, 1),
                           size: 45,
@@ -121,8 +100,8 @@ class _ScanScreenState extends State<ScanScreen> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Text(scannedText,maxLines: 50,overflow: TextOverflow.ellipsis,textAlign: TextAlign.justify,style: subTitleStyle,),
-                                Text(translatedText,maxLines: 50,overflow: TextOverflow.ellipsis,textAlign: TextAlign.justify,style: translatedStyle,textDirection: TextDirection.rtl,),
+                                Text(scannedText,maxLines: 50,overflow: TextOverflow.ellipsis,textAlign: TextAlign.justify,style: MyStyle.subTitleStyle,),
+                                Text(translatedText,maxLines: 50,overflow: TextOverflow.ellipsis,textAlign: TextAlign.justify,style: MyStyle.translatedStyle,textDirection: TextDirection.rtl,),
                               ],
                             ),
                           ),
@@ -147,7 +126,7 @@ class _ScanScreenState extends State<ScanScreen> {
                               children: [
                                 Text(
                                   "اسکن از گالری",
-                                  style: buttonStyle,
+                                  style: MyStyle.buttonStyle,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -173,7 +152,7 @@ class _ScanScreenState extends State<ScanScreen> {
                               children: [
                                 Text(
                                   "اسکن با دوربین",
-                                  style: buttonStyle,
+                                  style: MyStyle.buttonStyle,
                                 ),
                                 SizedBox(
                                   width: 10,
